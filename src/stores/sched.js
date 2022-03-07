@@ -62,8 +62,8 @@ export const useSchedsStore = defineStore("scheds", {
             } else {
                 toast.warning("You Already Uploaded Your Schedule")
             }
-        }, downloadSchedule(items) {
-            let filename = "my_sched.json";
+        }, downloadSchedule(items, name) {
+            let filename = `${name}.json`;
             let contentType = "application/json;charset=utf-8;";
             if (window.navigator && window.navigator.msSaveOrOpenBlob) {
                 var blob = new Blob([decodeURIComponent(encodeURI(JSON.stringify(items, null, 4)))], { type: contentType });

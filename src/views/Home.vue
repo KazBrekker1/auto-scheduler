@@ -108,7 +108,7 @@
         >Submit</button>
 
         <button
-            @click="schedStore.downloadSchedule(resultObject)"
+            @click="schedStore.downloadSchedule(resultObject, 'My_Sched')"
             class="btn btn-info btn-lg left-6 bottom-6 sm:fixed"
         >Download</button>
     </div>

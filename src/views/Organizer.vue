@@ -117,6 +117,12 @@
             </tr>
         </tbody>
     </table>
+        <div class="py-3 px-9">
+        <button
+            @click="schedStore.downloadSchedule(loadedSched, 'For_All')"
+            class="btn btn-info btn-lg left-6 bottom-6 sm:fixed"
+        >Download</button>
+    </div>
 </template>
 
 <script setup>
