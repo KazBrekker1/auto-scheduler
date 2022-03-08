@@ -21,7 +21,7 @@
                                         handleTimeToggle(time, 'Saturday', evt)
                                     }"
                                     type="checkbox"
-                                    class="checkbox"
+                                    class="checkbox mx-2"
                                 />
                                 <span class="label-text">{{ time }}</span>
                             </label>
@@ -35,7 +35,7 @@
                                         handleTimeToggle(time, 'Sunday', evt)
                                     }"
                                     type="checkbox"
-                                    class="checkbox"
+                                    class="checkbox mx-2"
                                 />
                                 <span class="label-text">{{ time }}</span>
                             </label>
@@ -49,7 +49,7 @@
                                         handleTimeToggle(time, 'Monday', evt)
                                     }"
                                     type="checkbox"
-                                    class="checkbox"
+                                    class="checkbox mx-2"
                                 />
                                 <span class="label-text">{{ time }}</span>
                             </label>
@@ -63,7 +63,7 @@
                                         handleTimeToggle(time, 'Tuesday', evt)
                                     }"
                                     type="checkbox"
-                                    class="checkbox"
+                                    class="checkbox mx-2"
                                 />
                                 <span class="label-text">{{ time }}</span>
                             </label>
@@ -77,7 +77,7 @@
                                         handleTimeToggle(time, 'Wednesday', evt)
                                     }"
                                     type="checkbox"
-                                    class="checkbox"
+                                    class="checkbox mx-2"
                                 />
                                 <span class="label-text">{{ time }}</span>
                             </label>
@@ -91,7 +91,7 @@
                                         handleTimeToggle(time, 'Thursday', evt)
                                     }"
                                     type="checkbox"
-                                    class="checkbox"
+                                    class="checkbox mx-2"
                                 />
                                 <span class="label-text">{{ time }}</span>
                             </label>
@@ -101,7 +101,7 @@
             </tbody>
         </table>
     </div>
-    <div class="py-3 px-9">
+    <div class="py-3 px-9 gap-3 btn-group">
         <button
             @click="schedStore.submitTimes(resultObject, user.email, user.displayName)"
             class="btn btn-success btn-lg right-6 bottom-6 sm:fixed"

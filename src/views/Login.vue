@@ -1,5 +1,5 @@
 <template>
-    <div class="w-2/6 mx-auto">
+    <div class="max-w-xl mx-auto">
         <div class="p-10 card bg-base-200">
             <h1 class="font-bold text-center">Sign In</h1>
             <div class="mx-auto p-6">
