@@ -80,6 +80,14 @@ export const useSchedsStore = defineStore("scheds", {
         }, async loadSched(schedCode) {
             const schedTimes = await getDoc(doc(db, "sessions", schedCode))
             if (schedTimes.exists()) {
+                this.loadedSched = {
+                    Saturday: JSON.parse(JSON.stringify(times))
+                    , Sunday: JSON.parse(JSON.stringify(times))
+                    , Monday: JSON.parse(JSON.stringify(times))
+                    , Tuesday: JSON.parse(JSON.stringify(times))
+                    , Wednesday: JSON.parse(JSON.stringify(times))
+                    , Thursday: JSON.parse(JSON.stringify(times))
+                }
                 let schedObject = schedTimes.data()
                 this.submissionsCount = schedObject['times'].length
                 schedObject['times'].forEach(userSubmission => {
