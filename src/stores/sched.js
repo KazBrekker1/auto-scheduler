@@ -62,7 +62,8 @@ export const useSchedsStore = defineStore("scheds", {
                 toast.info("Schedule Updated")
             }
 
-        }, downloadSchedule(items, name) {
+        },
+        downloadSchedule(items, name) {
             let filename = `${name}.json`;
             let contentType = "application/json;charset=utf-8;";
             if (window.navigator && window.navigator.msSaveOrOpenBlob) {
@@ -77,8 +78,13 @@ export const useSchedsStore = defineStore("scheds", {
                 a.click();
                 document.body.removeChild(a);
             }
-        }, async loadSched(schedCode) {
-            const scheduleObject = await getDoc(doc(db, "sessions", schedCode))
+        },
+
+
+        // a8e4c9ee- 9ee9- 4887 - b537 - 43568e3f1331 
+        async loadSched(schedCode) {
+            let schedRef = doc(db, "sessions", schedCode.replaceAll(" ", ""))
+            const scheduleObject = await getDoc(schedRef)
             if (scheduleObject.exists()) {
                 this.loadedSched = {
                     Saturday: JSON.parse(JSON.stringify(times))
@@ -88,17 +94,17 @@ export const useSchedsStore = defineStore("scheds", {
                     , Wednesday: JSON.parse(JSON.stringify(times))
                     , Thursday: JSON.parse(JSON.stringify(times))
                 }
-                let schedObject = scheduleObject.data()
-                this.submissionsCount = schedObject['times'].length
-                schedObject['times'].forEach(userSubmission => {
-                    for (const weekday in userSubmission) {
-                        if (!["userName", "userEmail"].includes(weekday)) {
-                            for (const time of userSubmission[weekday]) {
-                                this.loadedSched[weekday][time].push(userSubmission['userName'])
-                            }
+                let scheduleData = scheduleObject.data()
+                this.submissionsCount = Object.keys(scheduleData).length
+                for (const submissionKey in scheduleData) {
+                    let submissionTimes = scheduleData[submissionKey].times
+                    let name = scheduleData[submissionKey].userName
+                    for (const weekday in submissionTimes) {
+                        for (const time of submissionTimes[weekday]) {
+                            this.loadedSched[weekday][time].push(name)
                         }
                     }
-                });
+                }
             } else {
                 toast.error("A Schedule With This Code Doesnt Exist")
             }
