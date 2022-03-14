@@ -41,27 +41,27 @@ export const useSchedsStore = defineStore("scheds", {
                 'Enter The Code',
                 new Date().toLocaleDateString().replaceAll('/', '-')
             )
-            let timeIdx
             let userSubmited = false
             let schedRef = doc(db, "sessions", schedCode.replaceAll(" ", ""))
-            const schedTimes = await getDoc(schedRef)
-            if (schedTimes.exists()) {
-                schedTimes.data()['times'].forEach((userSubmission, idx) => {
-                    if (userSubmission.userEmail == userEmail) {
-                        timeIdx = idx
-                        userSubmited = true
-                        return
-                    }
-                });
+
+            const scheduleObject = await getDoc(schedRef)
+            if (scheduleObject.exists()) {
+                let scheduleData = scheduleObject.data()
+                if (scheduleData[userEmail]) {
+                    userSubmited = true
+                }
             }
+
+            await setDoc(schedRef, {
+                [userEmail]: { userName, times }
+            }, { merge: true });
+
             if (!userSubmited) {
-                await setDoc(schedRef, {
-                    times: arrayUnion({ userEmail, userName, ...times })
-                }, { merge: true });
                 toast.success("Schedule Uploaded")
             } else {
-                toast.warning("You Already Uploaded Your Schedule")
+                toast.info("Schedule Updated")
             }
+
         }, downloadSchedule(items, name) {
             let filename = `${name}.json`;
             let contentType = "application/json;charset=utf-8;";
@@ -78,8 +78,8 @@ export const useSchedsStore = defineStore("scheds", {
                 document.body.removeChild(a);
             }
         }, async loadSched(schedCode) {
-            const schedTimes = await getDoc(doc(db, "sessions", schedCode))
-            if (schedTimes.exists()) {
+            const scheduleObject = await getDoc(doc(db, "sessions", schedCode))
+            if (scheduleObject.exists()) {
                 this.loadedSched = {
                     Saturday: JSON.parse(JSON.stringify(times))
                     , Sunday: JSON.parse(JSON.stringify(times))
@@ -88,7 +88,7 @@ export const useSchedsStore = defineStore("scheds", {
                     , Wednesday: JSON.parse(JSON.stringify(times))
                     , Thursday: JSON.parse(JSON.stringify(times))
                 }
-                let schedObject = schedTimes.data()
+                let schedObject = scheduleObject.data()
                 this.submissionsCount = schedObject['times'].length
                 schedObject['times'].forEach(userSubmission => {
                     for (const weekday in userSubmission) {
