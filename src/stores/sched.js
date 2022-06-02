@@ -36,30 +36,30 @@ export const useSchedsStore = defineStore("scheds", {
         }
     },
     actions: {
-        async submitTimes(times, userEmail, userName) {
-            let schedCode = prompt(
-                'Enter The Code',
-                new Date().toLocaleDateString().replaceAll('/', '-')
-            )
+        async submitTimes(times, userEmail, userName, schedCode) {
             let userSubmited = false
-            let schedRef = doc(db, "sessions", schedCode.replaceAll(" ", ""))
+            let defaultCode = new Date().toLocaleDateString().replaceAll('/', '-')
+            let confirmation = confirm(`Submit Your Schedule with Code : ${schedCode || defaultCode}`)
+            if (confirmation) {
 
-            const scheduleObject = await getDoc(schedRef)
-            if (scheduleObject.exists()) {
-                let scheduleData = scheduleObject.data()
-                if (scheduleData[userEmail]) {
-                    userSubmited = true
+                let schedRef = doc(db, "sessions", schedCode.trim() || defaultCode)
+
+                const scheduleObject = await getDoc(schedRef)
+                if (scheduleObject.exists()) {
+                    let scheduleData = scheduleObject.data()
+                    if (scheduleData[userEmail]) {
+                        userSubmited = true
+                    }
                 }
-            }
+                await setDoc(schedRef, {
+                    [userEmail]: { userName, times }
+                }, { merge: true });
 
-            await setDoc(schedRef, {
-                [userEmail]: { userName, times }
-            }, { merge: true });
-
-            if (!userSubmited) {
-                toast.success("Schedule Uploaded")
-            } else {
-                toast.info("Schedule Updated")
+                if (!userSubmited) {
+                    toast.success("Schedule Uploaded")
+                } else {
+                    toast.info("Schedule Updated")
+                }
             }
 
         },

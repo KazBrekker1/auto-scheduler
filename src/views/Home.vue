@@ -1,5 +1,9 @@
 <template>
-    <div class="p-4">
+    <div class="p-4 flex flex-col gap-6">
+        <label for="sched_code" class="mx-auto">
+            <input type="text" name="sched_code" placeholder="Session Code" class="py-3 px-5 rounded-md w-72 text-black"
+                v-model="schedCode">
+        </label>
         <table class="table w-3/4 mx-auto table-zebra">
             <thead>
                 <tr class="text-center">
@@ -16,13 +20,9 @@
                     <td>
                         <div class="form-control">
                             <label class="cursor-pointer label justify-evenly">
-                                <input
-                                    @click="(evt) => {
-                                        handleTimeToggle(time, 'Saturday', evt)
-                                    }"
-                                    type="checkbox"
-                                    class="checkbox mx-2"
-                                />
+                                <input @click="(evt) => {
+                                    handleTimeToggle(time, 'Saturday', evt)
+                                }" type="checkbox" class="checkbox mx-2" />
                                 <span class="label-text">{{ time }}</span>
                             </label>
                         </div>
@@ -30,13 +30,9 @@
                     <td>
                         <div class="form-control">
                             <label class="cursor-pointer label justify-evenly">
-                                <input
-                                    @click="(evt) => {
-                                        handleTimeToggle(time, 'Sunday', evt)
-                                    }"
-                                    type="checkbox"
-                                    class="checkbox mx-2"
-                                />
+                                <input @click="(evt) => {
+                                    handleTimeToggle(time, 'Sunday', evt)
+                                }" type="checkbox" class="checkbox mx-2" />
                                 <span class="label-text">{{ time }}</span>
                             </label>
                         </div>
@@ -44,13 +40,9 @@
                     <td>
                         <div class="form-control">
                             <label class="cursor-pointer label justify-evenly">
-                                <input
-                                    @click="(evt) => {
-                                        handleTimeToggle(time, 'Monday', evt)
-                                    }"
-                                    type="checkbox"
-                                    class="checkbox mx-2"
-                                />
+                                <input @click="(evt) => {
+                                    handleTimeToggle(time, 'Monday', evt)
+                                }" type="checkbox" class="checkbox mx-2" />
                                 <span class="label-text">{{ time }}</span>
                             </label>
                         </div>
@@ -58,13 +50,9 @@
                     <td>
                         <div class="form-control">
                             <label class="cursor-pointer label justify-evenly">
-                                <input
-                                    @click="(evt) => {
-                                        handleTimeToggle(time, 'Tuesday', evt)
-                                    }"
-                                    type="checkbox"
-                                    class="checkbox mx-2"
-                                />
+                                <input @click="(evt) => {
+                                    handleTimeToggle(time, 'Tuesday', evt)
+                                }" type="checkbox" class="checkbox mx-2" />
                                 <span class="label-text">{{ time }}</span>
                             </label>
                         </div>
@@ -72,13 +60,9 @@
                     <td>
                         <div class="form-control">
                             <label class="cursor-pointer label justify-evenly">
-                                <input
-                                    @click="(evt) => {
-                                        handleTimeToggle(time, 'Wednesday', evt)
-                                    }"
-                                    type="checkbox"
-                                    class="checkbox mx-2"
-                                />
+                                <input @click="(evt) => {
+                                    handleTimeToggle(time, 'Wednesday', evt)
+                                }" type="checkbox" class="checkbox mx-2" />
                                 <span class="label-text">{{ time }}</span>
                             </label>
                         </div>
@@ -86,13 +70,9 @@
                     <td>
                         <div class="form-control">
                             <label class="cursor-pointer label justify-evenly">
-                                <input
-                                    @click="(evt) => {
-                                        handleTimeToggle(time, 'Thursday', evt)
-                                    }"
-                                    type="checkbox"
-                                    class="checkbox mx-2"
-                                />
+                                <input @click="(evt) => {
+                                    handleTimeToggle(time, 'Thursday', evt)
+                                }" type="checkbox" class="checkbox mx-2" />
                                 <span class="label-text">{{ time }}</span>
                             </label>
                         </div>
@@ -102,25 +82,23 @@
         </table>
     </div>
     <div class="py-3 px-9 gap-3 btn-group">
-        <button
-            @click="schedStore.submitTimes(resultObject, user.email, user.displayName)"
-            class="btn btn-success btn-lg right-6 bottom-6 sm:fixed"
-        >Submit</button>
+        <button type="submit" @click="schedStore.submitTimes(resultObject, user.email, user.displayName, schedCode)"
+            class="btn btn-success btn-lg right-6 bottom-6 sm:fixed">Submit</button>
 
-        <button
-            @click="schedStore.downloadSchedule(resultObject, 'My_Sched')"
-            class="btn btn-info btn-lg left-6 bottom-6 sm:fixed"
-        >Download</button>
+        <button @click="schedStore.downloadSchedule(resultObject, 'My_Sched')"
+            class="btn btn-info btn-lg left-6 bottom-6 sm:fixed">Download</button>
     </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { useAuthStore } from "../stores/auth";
 import { useSchedsStore } from "../stores/sched";
 
 const authStore = useAuthStore()
 const schedStore = useSchedsStore()
 let user = authStore.loggedInUser
+let schedCode = ref("")
 // Remove user.name and user.email from submit function
 let times = [
     "08:00",

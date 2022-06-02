@@ -9,16 +9,12 @@
         </div>
         <div class="form-control my-auto mx-auto">
             <div class="input-group py-4 place-content-center">
-                <input
-                    type="text"
-                    placeholder="Session Code"
-                    class="input input-md input-bordered"
-                    v-model.trim="schedCode"
-                />
+                <input type="text" placeholder="Session Code" class="input input-md input-bordered"
+                    v-model.trim="schedCode" />
                 <button @click="lookUpSchedule" class="btn btn-md btn-info">Look Up Schedule</button>
             </div>
             <div class="mx-auto text-center">
-                <button @click="generateSchedCode" class="btn btn-success mb-2">Generate Session Code</button>
+                <button @click="generateSchedCode" class="btn btn-success mb-2">Generate Schedule Code</button>
                 <h2 ref="codeTxt"></h2>
             </div>
         </div>
@@ -117,11 +113,9 @@
             </tr>
         </tbody>
     </table>
-        <div class="py-3 px-9">
-        <button
-            @click="schedStore.downloadSchedule(loadedSched, 'For_All')"
-            class="btn btn-info btn-lg left-6 bottom-6 sm:fixed"
-        >Download</button>
+    <div class="py-3 px-9">
+        <button @click="schedStore.downloadSchedule(loadedSched, 'For_All')"
+            class="btn btn-info btn-lg left-6 bottom-6 sm:fixed">Download</button>
     </div>
 </template>
 
@@ -165,7 +159,7 @@ const lookUpSchedule = () => {
     schedStore.loadSched(schedCode.value)
 }
 const generateSchedCode = () => {
-    let schedUUID = uuid4()
+    let schedUUID = uuid4().replaceAll("-", "")
     navigator.clipboard.writeText(schedUUID).then(() => {
         toast.success("Copied To Clipboard!")
         codeTxt.value.innerText = schedUUID
