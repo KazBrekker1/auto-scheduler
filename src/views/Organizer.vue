@@ -168,6 +168,3 @@ const generateSchedCode = () => {
 }
 
 </script>
-
-<style>
-</style>

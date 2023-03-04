@@ -10,25 +10,6 @@ export const useAuthStore = defineStore("auth", {
         }
     },
     actions: {
-        // login(email, password) {
-        //     const auth = getAuth()
-        //     signInWithEmailAndPassword(auth, email, password)
-        //         .then(data => {
-        //             this.loggedInUser = auth.currentUser
-        //         }).catch(error => {
-        //             console.log(error.message)
-        //         })
-        // },
-        // regiser(email, password) {
-        //     const auth = getAuth()
-
-        //     createUserWithEmailAndPassword(auth, email, password)
-        //         .then(data => {
-        //             this.loggedInUser = auth.currentUser
-        //         }).catch(error => {
-        //             console.log(error.message)
-        //         })
-        // },
         googleLogin() {
             const provider = new GoogleAuthProvider()
             signInWithPopup(getAuth(), provider)

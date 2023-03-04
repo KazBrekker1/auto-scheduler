@@ -1,9 +1,17 @@
 <template>
     <div class="p-4 flex flex-col gap-6">
-        <label for="sched_code" class="mx-auto">
-            <input type="text" name="sched_code" placeholder="Session Code" class="py-3 px-5 rounded-md w-72 text-black"
-                v-model="schedCode">
-        </label>
+        <div class="flex mx-auto gap-5 flex-wrap justify-center">
+            <label for="sched_code">
+                <input type="text" name="sched_code" placeholder="Session Code" class="py-3 px-5 rounded-md w-72 text-black"
+                    v-model="schedCode" />
+            </label>
+            <button type="submit" @click="schedStore.submitTimes(resultObject, user.email, user.displayName, schedCode)"
+                class="btn btn-success">Submit
+            </button>
+            <button @click="schedStore.downloadSchedule(resultObject, 'My_Sched')" class="btn btn-info">
+                Download
+            </button>
+        </div>
         <table class="table w-3/4 mx-auto table-zebra">
             <thead>
                 <tr class="text-center">
@@ -81,13 +89,6 @@
             </tbody>
         </table>
     </div>
-    <div class="py-3 px-9 gap-3 btn-group">
-        <button type="submit" @click="schedStore.submitTimes(resultObject, user.email, user.displayName, schedCode)"
-            class="btn btn-success btn-lg right-6 bottom-6 sm:fixed">Submit</button>
-
-        <button @click="schedStore.downloadSchedule(resultObject, 'My_Sched')"
-            class="btn btn-info btn-lg left-6 bottom-6 sm:fixed">Download</button>
-    </div>
 </template>
 
 <script setup>
@@ -129,5 +130,3 @@ const handleTimeToggle = (time, day, evt) => {
 }
 </script>
 
-<style>
-</style>

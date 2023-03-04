@@ -1,9 +1,8 @@
 <template>
-  <nav
+  <nav v-if="loggedIn"
     class="navbar sticky top-5 z-10 m-4 mx-auto w-3/4 justify-around shadow-lg rounded-box bg-neutral text-neutral-content">
     <router-link class="btn btn-ghost btn-sm rounded-btn" v-if="loggedIn" to="/">Schedule</router-link>
     <router-link class="btn btn-ghost btn-sm rounded-btn" v-if="loggedIn" to="/organizer">Organizer</router-link>
-    <router-link class="btn btn-ghost btn-sm rounded-btn" v-if="!loggedIn" to="/login">Login</router-link>
     <button class="btn btn-error btn-sm rounded-btn" v-if="loggedIn" @click="signOut">Sign Out</button>
   </nav>
   <router-view />

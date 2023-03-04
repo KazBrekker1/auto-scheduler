@@ -1,5 +1,5 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
-import { doc, setDoc, arrayUnion, query, collection, getDocs, where, getDoc, addDoc, deleteDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { useToast } from 'vue-toastification'
 
@@ -41,9 +41,7 @@ export const useSchedsStore = defineStore("scheds", {
             let defaultCode = new Date().toLocaleDateString().replaceAll('/', '-')
             let confirmation = confirm(`Submit Your Schedule with Code : ${schedCode || defaultCode}`)
             if (confirmation) {
-
                 let schedRef = doc(db, "sessions", schedCode.trim() || defaultCode)
-
                 const scheduleObject = await getDoc(schedRef)
                 if (scheduleObject.exists()) {
                     let scheduleData = scheduleObject.data()
@@ -79,9 +77,6 @@ export const useSchedsStore = defineStore("scheds", {
                 document.body.removeChild(a);
             }
         },
-
-
-        // a8e4c9ee- 9ee9- 4887 - b537 - 43568e3f1331 
         async loadSched(schedCode) {
             let schedRef = doc(db, "sessions", schedCode.replaceAll(" ", ""))
             const scheduleObject = await getDoc(schedRef)
