@@ -1,7 +1,22 @@
-# Vue 3 + Vite
+# Team Scheduling Solution
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+1. Sign in with your google account:
+   - To create an event:
+     - Go to the organizer tab
+     - Generate a session code, which is unique to the event you will be holding (Automatically added to your clip board)
+     - Share this session code with your peers
+   - To submit your available times for an event:
+     - Go to the Schedule Tab
+     - Paste the event's session code in the 'Session Code' Field
+     - Tick on your available times
+     - Submit
+   - To view your team's submissions:
+     - Go to the organizer tab
+     - Paste the Session Code in the 'Session Code' Field
+     - Press Look up schedule
+     - The table will be updated with your team members' available times
+     - Press on a time-slot to see who is free in it
 
-## Recommended IDE Setup
+## Hop in!
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+> https://auto-scheduler.pages.dev
